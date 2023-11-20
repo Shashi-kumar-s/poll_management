@@ -1,22 +1,35 @@
-import React from "react";
-import "../loginForm/style.css";
+import React, { useEffect, useState } from "react";
+import "./style.css";
 import InputFieldPoll from "../../components/inputField";
 import PollButton from "../../components/pollButton";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { ErrorMessage, Form, Formik } from "formik";
 import { inputFieldLoginData } from "../../staticData/inputFieldData";
 import { getLoginData } from "../../utils/GetLoginData";
-import { SignupSchema } from "../../schema/Schema";
+import { useDispatch, useSelector } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 
 const LoginForm = () => {
+  const [roleType, setRoleType] = useState("");
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.LoginSlice.data.payload);
+
+  useEffect(() => {
+    if (token) {
+      const decode = jwtDecode(token);
+      setRoleType(decode.role);
+      sessionStorage.setItem("token", token);
+      console.log(decode, "########");
+    }
+  }, [token]);
+
+
   return (
     <>
       <Formik
         initialValues={{ Email: "", Password: "" }}
-        validationSchema={SignupSchema}
         onSubmit={(values, actions) => {
-          console.log(values);
-          getLoginData(values);
+          dispatch(getLoginData(values));
           actions.resetForm();
         }}
       >

@@ -1,5 +1,4 @@
 import { Field } from 'formik'
-import React from 'react'
 
 const InputFieldPoll = (props) => {
     const {type,placeholder,name,autoComplete,className}=props
