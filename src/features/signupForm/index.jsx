@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import InputFieldPoll from "../../components/inputField";
 import PollButton from "../../components/pollButton";
-import "../signupForm/style.css";
+import "./style.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { inputFieldSignupData } from "../../staticData/inputFieldData";
 import { getRegisterData } from "../../utils/GetResisterData";
@@ -52,14 +52,12 @@ const Signup = () => {
             <div className="signup__select">
               <label htmlFor="role">Role</label>
               <Field as="select" className="select" name="Role">
-                {/* <option>-- Select Role --</option> */}
+                <option>-- Select Role --</option>
                 {selectData.map((ele) => {
                   return (
-                    <>
                       <option key={ele.id} value={ele.name}>
                         {ele.name}
                       </option>
-                    </>
                   );
                 })}
               </Field>
